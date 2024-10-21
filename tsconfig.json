@@ -20,5 +20,9 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "include": [
+    "src/**/*.ts", // Asegúrate de que tu archivo .d.ts está en esta ruta
+    "src/types/**/*.d.ts" // Si lo colocaste en un directorio de tipos
+  ]
 }

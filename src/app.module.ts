@@ -8,6 +8,7 @@ import { RoomsModule } from './rooms/rooms.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
+import { CsrfController } from './csrf/csrf.controller';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { join } from 'path';
     }),
     RoomsModule, ReservationsModule
   ],
-  controllers: [AppController],
+  controllers: [AppController, CsrfController],
   providers: [AppService, PrismaService],
 })
 export class AppModule {}
