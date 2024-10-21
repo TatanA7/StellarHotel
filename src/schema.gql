@@ -55,9 +55,9 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type CategorizationReservation {
-  past: [Reservation!]!
-  onGoing: [Reservation!]!
-  futures: [Reservation!]!
+  past: [Reservation!]
+  onGoing: [Reservation!]
+  futures: [Reservation!]
 }
 
 type reservationsWithDetails {
@@ -73,7 +73,6 @@ type reservationsWithDetails {
 
 type Query {
   getAvailablesRooms(input: GetAvailableRoomsDto!): [availableRoomsWithDetails!]!
-  room(id: Int!): Room!
   getAllReservation: CategorizationReservation!
   getReservationDetail(reservationId: Float!): [reservationsWithDetails!]!
 }
@@ -87,7 +86,6 @@ input GetAvailableRoomsDto {
 }
 
 type Mutation {
-  removeRoom(id: Int!): Room!
   createReservation(input: CreateReservationInput!): Reservation!
   cancelReservation(cancelReservationInput: CancelReservationInput!): Reservation!
 }
