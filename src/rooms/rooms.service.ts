@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 // import { CreateRoomInput } from './dto/create-room.input';
 // import { UpdateRoomInput } from './dto/update-room.input';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { GetAvailableRoomsDto, validateReservation } from './dto/GetAvailableRoomsDto ';
+import { GetAvailableRoomsDto, validateReservation } from './dto/getAvailableRoomsDto ';
 import { Prisma } from '@prisma/client';
 import { availableRoomsWithDetails, IresultaDataBase } from './entities/room.entity';
 

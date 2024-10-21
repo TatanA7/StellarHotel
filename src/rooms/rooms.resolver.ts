@@ -2,7 +2,7 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { RoomsService } from './rooms.service';
 import { availableRoomsWithDetails, Room } from './entities/room.entity';
-import { GetAvailableRoomsDto } from './dto/GetAvailableRoomsDto ';
+import { GetAvailableRoomsDto } from './dto/getAvailableRoomsDto ';
 // import { CreateRoomInput } from './dto/create-room.input';
 // import { UpdateRoomInput } from './dto/update-room.input';
 
