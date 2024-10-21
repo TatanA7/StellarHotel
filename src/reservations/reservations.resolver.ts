@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { ReservationsService } from './reservations.service';
 import { CategorizationReservation, Reservation, reservationsWithDetails } from './entities/reservation.entity';
 import { CreateReservationInput } from './dto/create-reservation.input';

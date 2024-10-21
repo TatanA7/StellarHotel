@@ -107,6 +107,7 @@ export class ReservationsService {
         }
       }
     }))
+    
     return mapping;
     
   }

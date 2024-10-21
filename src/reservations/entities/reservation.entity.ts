@@ -79,5 +79,4 @@ export interface IresultaSPReservationDetails {
   roomtype: string;
   maxoccupancy: number;
   numberofguests:number;
-  breakDown: Breakdown;
 }
