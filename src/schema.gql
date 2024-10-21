@@ -1,0 +1,93 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type RoomType {
+  id: Int!
+  name: String!
+  price: Float!
+  maxOccupancy: Int!
+  numberOfBeds: Int!
+  rooms: [Room!]!
+}
+
+type Room {
+  id: Int!
+  roomTypeId: Int!
+  hasOceanView: Boolean!
+  reservations: [Reservation!]!
+  roomType: RoomType!
+}
+
+type AdditionalChange {
+  breakfastcost: Float!
+  weekendincrease: Float!
+}
+
+type Breakdown {
+  discount: Float!
+  additionalChange: AdditionalChange!
+}
+
+type availableRoomsWithDetails {
+  roomid: Int!
+  baserate: Float!
+  totalprice: Float!
+  roomtype: String!
+  maxoccupancy: Int!
+  breakDown: Breakdown!
+}
+
+type Reservation {
+  id: Int!
+  roomId: Int!
+  checkIn: DateTime!
+  checkOut: DateTime!
+  numberOfGuests: Int!
+  breakfastIncluded: Boolean!
+  isCancelled: Boolean!
+  room: Room!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type CategorizationReservation {
+  past: [Reservation!]!
+  onGoing: [Reservation!]!
+  futures: [Reservation!]!
+}
+
+type Query {
+  getAvailablesRooms(input: GetAvailableRoomsDto!): [availableRoomsWithDetails!]!
+  room(id: Int!): Room!
+  getAllReservation: CategorizationReservation!
+}
+
+input GetAvailableRoomsDto {
+  roomId: Int
+  checkinDate: DateTime!
+  checkoutDate: DateTime!
+  Amountguests: Float!
+  breakfast: Boolean!
+}
+
+type Mutation {
+  removeRoom(id: Int!): Room!
+  createReservation(input: CreateReservationInput!): Reservation!
+  cancelReservation(cancelReservationInput: CancelReservationInput!): Reservation!
+}
+
+input CreateReservationInput {
+  roomId: Float!
+  checkinDate: DateTime!
+  checkoutDate: DateTime!
+  numberOfGuests: Float!
+  breakfastIncluded: Boolean!
+}
+
+input CancelReservationInput {
+  reservationId: Float!
+}
