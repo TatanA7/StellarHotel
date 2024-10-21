@@ -9,12 +9,12 @@ import SPReservationDetail from './SPReservationDetails';
 const prisma = new PrismaClient();
 
 async function main() {
-  // roomTypes().then( ()=>
-  //   room()
-  // )
-  // parameters()
+  roomTypes().then( ()=>
+    room()
+  )
+  parameters()
   SPReservationDetail();
-  // SPCalculateTotalPrice();
+  SPCalculateTotalPrice();
 }
 
 main()
