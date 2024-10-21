@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { ReservationsService } from './reservations.service';
-import { CategorizationReservation, Reservation } from './entities/reservation.entity';
+import { CategorizationReservation, Reservation, reservationsWithDetails } from './entities/reservation.entity';
 import { CreateReservationInput } from './dto/create-reservation.input';
 import { CancelReservationInput } from './dto/cancel-reservation.input';
 // import { UpdateReservationInput } from './dto/update-reservation.input';
@@ -22,12 +22,12 @@ export class ReservationsResolver {
     return this.reservationsService.findAll();
   }
 
-  // @Query(() => CategorizationReservation, { name: 'getAllReservation' })
-  // getReservationDetail(
-  //   @Args('reservationId') reservationId: number
-  // ) {
-  //   return this.reservationsService.reservationDetails(reservationId);
-  // }
+  @Query(() => [reservationsWithDetails], { name: 'getReservationDetail' })
+  getReservationDetail(
+    @Args('reservationId') reservationId: number
+  ) {
+    return this.reservationsService.reservationDetails(reservationId);
+  }
 
   @Mutation(() => Reservation)
   cancelReservation(

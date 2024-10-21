@@ -60,10 +60,22 @@ type CategorizationReservation {
   futures: [Reservation!]!
 }
 
+type reservationsWithDetails {
+  id: Int!
+  roomid: Int!
+  baserate: Float!
+  totalprice: Float!
+  roomtype: String!
+  maxoccupancy: Int!
+  numberOfGuests: Float!
+  breakDown: Breakdown!
+}
+
 type Query {
   getAvailablesRooms(input: GetAvailableRoomsDto!): [availableRoomsWithDetails!]!
   room(id: Int!): Room!
   getAllReservation: CategorizationReservation!
+  getReservationDetail(reservationId: Float!): [reservationsWithDetails!]!
 }
 
 input GetAvailableRoomsDto {

@@ -42,7 +42,7 @@ export class Room {
 }
 
 @ObjectType()
-class AdditionalChange {
+export class AdditionalChange {
   @Field(() => Float)
   breakfastcost: number;
   
@@ -51,7 +51,7 @@ class AdditionalChange {
 }
 
 @ObjectType()
-class Breakdown {
+export class Breakdown {
   @Field(() => Float)
   discount: number;
 

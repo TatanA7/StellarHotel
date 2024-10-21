@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Room } from 'src/rooms/entities/room.entity';
+import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
+import { Breakdown, Room } from 'src/rooms/entities/room.entity';
 
 @ObjectType()
 export class Reservation {
@@ -39,4 +39,45 @@ export class CategorizationReservation {
 
   @Field(() => [Reservation])
   futures:Reservation[]
+}
+
+@ObjectType()
+export class reservationsWithDetails {
+  @Field(() => Int)
+  id: number;
+
+  @Field(() => Int)
+  roomid: number;
+
+  @Field(() => Float)
+  baserate: number;
+
+  @Field(() => Float)
+  totalprice: number;
+
+  @Field(() => String)
+  roomtype: string;
+
+  @Field(() => Int)
+  maxoccupancy: number;
+
+  @Field()
+  numberOfGuests: number;
+
+  @Field()
+  breakDown: Breakdown;
+}
+
+export interface IresultaSPReservationDetails {
+  id: number;
+  breakfastcost: number;
+  weekendincrease: number;
+  discount: number;
+  roomid: number;
+  baserate: number;
+  totalprice: number;
+  roomtype: string;
+  maxoccupancy: number;
+  numberofguests:number;
+  breakDown: Breakdown;
 }

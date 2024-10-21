@@ -20,12 +20,14 @@ export class RoomsService {
 
   async getAvablesRooms(input:GetAvailableRoomsDto) {
     const {checkinDate,checkoutDate, Amountguests, breakfast} = input
-    const availableRooms:[IresultaDataBase] = await this.prisma.$queryRaw` SELECT * 
-                                                        FROM get_available_rooms(
-                                                          ${checkinDate}::DATE,
-                                                          ${checkoutDate}::DATE,
-                                                          ${breakfast},
-                                                          ${Amountguests}::INTEGER);`;
+    const availableRooms:[IresultaDataBase] = await this.prisma.$queryRaw` 
+      SELECT * 
+      FROM get_available_rooms(
+      ${checkinDate}::DATE,
+      ${checkoutDate}::DATE,
+      ${breakfast},
+      ${Amountguests}::INTEGER);`;
+      
     const mapping:availableRoomsWithDetails[] =  availableRooms.map((ar)=>({
       totalprice:ar.totalprice,
       baserate:ar.baserate,

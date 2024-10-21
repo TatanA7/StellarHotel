@@ -5,6 +5,7 @@ import { CreateReservationInput } from './dto/create-reservation.input';
 import { RoomsService } from 'src/rooms/rooms.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Reservation } from '@prisma/client';
+import { IresultaSPReservationDetails, reservationsWithDetails } from './entities/reservation.entity';
 
 @Injectable()
 export class ReservationsService {
@@ -84,9 +85,31 @@ export class ReservationsService {
     };  
   }
 
-  // async reservationDetails (id:number){
-  //   return "Hoola"
-  // }
+  async reservationDetails (reservationId:number){
+    const availableRooms:IresultaSPReservationDetails[] = await this.prisma.$queryRaw` 
+      SELECT * 
+      FROM sp_reservation_details(
+      ${reservationId}::INTEGER);`;
+
+    const mapping: reservationsWithDetails[] =  availableRooms.map((ar)=>({
+      id: ar.id,
+      totalprice:ar.totalprice,
+      baserate:ar.baserate,
+      maxoccupancy:ar.maxoccupancy,
+      roomid:ar.roomid,
+      roomtype:ar.roomtype,
+      numberOfGuests: ar.numberofguests,
+      breakDown:{
+        discount:ar.discount,
+        additionalChange:{
+          breakfastcost:ar.breakfastcost,
+          weekendincrease:ar.weekendincrease
+        }
+      }
+    }))
+    return mapping;
+    
+  }
   async update(reservationId: number) {
     return await this.prisma.reservation.update({
       where:{id:reservationId},
