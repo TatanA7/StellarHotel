@@ -31,13 +31,13 @@ export class Reservation {
 
 @ObjectType()
 export class CategorizationReservation {
-  @Field(() => [Reservation])
+  @Field(() => [Reservation], { nullable: true })
   past:Reservation[]
 
-  @Field(() => [Reservation])
+  @Field(() => [Reservation], { nullable: true })
   onGoing:Reservation[]
 
-  @Field(() => [Reservation])
+  @Field(() => [Reservation], { nullable: true })
   futures:Reservation[]
 }
 

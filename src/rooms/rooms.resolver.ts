@@ -10,32 +10,11 @@ import { GetAvailableRoomsDto } from './dto/getAvailableRoomsDto ';
 export class RoomsResolver {
   constructor(private readonly roomsService: RoomsService) {}
 
-  // @Mutation(() => Room)
-  // createRoom(@Args('createRoomInput') createRoomInput: CreateRoomInput) {
-  //   return this.roomsService.create(createRoomInput);
-  // }
 
   @Query(() => [availableRoomsWithDetails], { name: 'getAvailablesRooms' })
   getAvablesRooms(
     @Args('input') input: GetAvailableRoomsDto,
   ) {    
     return this.roomsService.getAvablesRooms(input);
-  }
-
-  @Query(() => Room, { name: 'room' })
-  findOne(
-    @Args('id', { type: () => Int }) id: number
-  ) {
-    return this.roomsService.findOne(id);
-  }
-
-  // @Mutation(() => Room)
-  // updateRoom(@Args('updateRoomInput') updateRoomInput: UpdateRoomInput) {
-  //   return this.roomsService.update(updateRoomInput.id, updateRoomInput);
-  // }
-
-  @Mutation(() => Room)
-  removeRoom(@Args('id', { type: () => Int }) id: number) {
-    return this.roomsService.remove(id);
   }
 }

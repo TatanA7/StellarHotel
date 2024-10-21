@@ -1,7 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-// import { CreateRoomInput } from './dto/create-room.input';
-// import { UpdateRoomInput } from './dto/update-room.input';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { GetAvailableRoomsDto, validateReservation } from './dto/getAvailableRoomsDto ';
 import { availableRoomsWithDetails, IresultaDataBase } from './entities/room.entity';
@@ -24,21 +22,24 @@ export class RoomsService {
       ${breakfast},
       ${Amountguests}::INTEGER);`;
       
-    const mapping:availableRoomsWithDetails[] =  availableRooms.map((ar)=>({
-      totalprice:ar.totalprice,
-      baserate:ar.baserate,
-      maxoccupancy:ar.maxoccupancy,
-      roomid:ar.roomid,
-      roomtype:ar.roomtype,
-      breakDown:{
-        discount:ar.discount,
-        additionalChange:{
-          breakfastcost:ar.breakfastcost,
-          weekendincrease:ar.weekendincrease
-        }
-      }
-    }))
-    return mapping;
+    return this.mapAvailableRooms(availableRooms);;
+  }
+
+  private mapAvailableRooms(availableRooms: IresultaDataBase[]): availableRoomsWithDetails[] {
+    return availableRooms.map(room => ({
+      totalprice: room.totalprice,
+      baserate: room.baserate,
+      maxoccupancy: room.maxoccupancy,
+      roomid: room.roomid,
+      roomtype: room.roomtype,
+      breakDown: {
+        discount: room.discount,
+        additionalChange: {
+          breakfastcost: room.breakfastcost,
+          weekendincrease: room.weekendincrease,
+        },
+      },
+    }));
   }
 
   async validateAvailableRoom(input:validateReservation){
@@ -46,31 +47,20 @@ export class RoomsService {
     const availableRooms = await this.prisma.room.findMany({
       where: {
         id: roomId,
-        AND: [
-          { 
-            reservations: {
-              none: {
-                OR: [
-                  {
-                    isCancelled:false,
-                    checkIn: {
-                      lt: checkoutDate,
-                    },
-                    checkOut: {
-                      gt: checkinDate,
-                    },
-                  },
-                ],
-              },
-            },
+        reservations: {
+          none: {
+            isCancelled: false,
+            checkIn: { lt: checkoutDate },
+            checkOut: { gt: checkinDate },
           },
-        ],
+        },
       },
       include: {
         reservations: true,
-        roomType:true
+        roomType: true,
       },
-    });    
+    });
+    
     return availableRooms
   }
 }

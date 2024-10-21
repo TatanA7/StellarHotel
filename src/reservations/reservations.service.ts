@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { CreateReservationInput } from './dto/create-reservation.input';
-// import { UpdateReservationInput } from './dto/update-reservation.input';
 import { RoomsService } from 'src/rooms/rooms.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Reservation } from '@prisma/client';
@@ -9,7 +8,7 @@ import { IresultaSPReservationDetails, reservationsWithDetails } from './entitie
 
 @Injectable()
 export class ReservationsService {
-  private readonly currentDate: Date;
+  private readonly currentDate: Date= new Date();
   constructor(
     private readonly roomsService: RoomsService,
     private readonly prisma: PrismaService) {}
@@ -43,6 +42,8 @@ export class ReservationsService {
   }
 
   async pastReservations() {
+    console.log(this.currentDate);
+    
     return await this.prisma.reservation.findMany({
       where: {
         checkOut: { lt: this.currentDate }
@@ -91,25 +92,7 @@ export class ReservationsService {
       FROM sp_reservation_details(
       ${reservationId}::INTEGER);`;
 
-    const mapping: reservationsWithDetails[] =  availableRooms.map((ar)=>({
-      id: ar.id,
-      totalprice:ar.totalprice,
-      baserate:ar.baserate,
-      maxoccupancy:ar.maxoccupancy,
-      roomid:ar.roomid,
-      roomtype:ar.roomtype,
-      numberOfGuests: ar.numberofguests,
-      breakDown:{
-        discount:ar.discount,
-        additionalChange:{
-          breakfastcost:ar.breakfastcost,
-          weekendincrease:ar.weekendincrease
-        }
-      }
-    }))
-    
-    return mapping;
-    
+    return this.mapReservationDetails(availableRooms)
   }
   async update(reservationId: number) {
     return await this.prisma.reservation.update({
@@ -117,5 +100,24 @@ export class ReservationsService {
       data:{isCancelled:true},
       include:{room:{include:{roomType:true}}}
     })
+  }
+
+  private mapReservationDetails(availableRooms: IresultaSPReservationDetails[]): reservationsWithDetails[] {
+    return availableRooms.map(ar => ({
+      id: ar.id,
+      totalprice: ar.totalprice,
+      baserate: ar.baserate,
+      maxoccupancy: ar.maxoccupancy,
+      roomid: ar.roomid,
+      roomtype: ar.roomtype,
+      numberOfGuests: ar.numberofguests,
+      breakDown: {
+        discount: ar.discount,
+        additionalChange: {
+          breakfastcost: ar.breakfastcost,
+          weekendincrease: ar.weekendincrease,
+        },
+      },
+    }));
   }
 }

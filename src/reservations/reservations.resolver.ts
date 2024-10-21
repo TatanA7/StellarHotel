@@ -4,7 +4,6 @@ import { ReservationsService } from './reservations.service';
 import { CategorizationReservation, Reservation, reservationsWithDetails } from './entities/reservation.entity';
 import { CreateReservationInput } from './dto/create-reservation.input';
 import { CancelReservationInput } from './dto/cancel-reservation.input';
-// import { UpdateReservationInput } from './dto/update-reservation.input';
 
 @Resolver(() => Reservation)
 export class ReservationsResolver {
