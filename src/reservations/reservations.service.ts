@@ -4,7 +4,7 @@ import { CreateReservationInput } from './dto/create-reservation.input';
 import { RoomsService } from 'src/rooms/rooms.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Reservation } from '@prisma/client';
-import { IresultaSPReservationDetails, reservationsWithDetails } from './entities/reservation.entity';
+import { CategorizationReservation, IresultaSPReservationDetails, reservationsWithDetails } from './entities/reservation.entity';
 
 @Injectable()
 export class ReservationsService {
@@ -83,7 +83,7 @@ export class ReservationsService {
     return {
       past:this.pastReservations(), 
       onGoing:this.onGoingReservations(), 
-      future: this.futureReservations()
+      futures: this.futureReservations()
     };  
   }
 
