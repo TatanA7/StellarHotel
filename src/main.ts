@@ -1,9 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { NestFactory } from '@nestjs/core';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import * as cookieParser from 'cookie-parser';
-import * as csrf from 'csurf'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
