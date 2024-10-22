@@ -44,20 +44,24 @@ export class RoomsService {
 
   async validateAvailableRoom(input:validateReservation){
     const {checkinDate,checkoutDate, roomId} = input
-    const availableRooms = await this.prisma.room.findMany({
+    const availableRooms = await this.prisma.room.findUnique({
       where: {
         id: roomId,
-        reservations: {
-          none: {
-            isCancelled: false,
-            checkIn: { lt: checkoutDate },
-            checkOut: { gt: checkinDate },
-          },
-        },
       },
       include: {
-        reservations: true,
-        roomType: true,
+        reservations: {
+          where: {
+            isCancelled: false,
+            AND: [
+              {
+                checkIn: { lt: checkoutDate },
+              },
+              {
+                checkOut: { gt: checkinDate },
+              },
+            ],
+          },
+        },
       },
     });
     

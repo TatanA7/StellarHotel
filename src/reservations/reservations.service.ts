@@ -22,8 +22,9 @@ export class ReservationsService {
           = createReservationInput;
 
     const isAvailableRoom = await this.roomsService.validateAvailableRoom({checkinDate, checkoutDate, roomId})
+    console.log(isAvailableRoom);
     let newReservation: Reservation;
-    if(isAvailableRoom.length > 0) {
+    if(isAvailableRoom?.reservations.length == 0   ) {
        newReservation = await this.prisma.reservation.create({
         data:{
           breakfastIncluded,
