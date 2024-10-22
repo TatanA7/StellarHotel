@@ -18,15 +18,19 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, documentFactory);
 
   app.use(cookieParser());
-  app.use(csrf({ cookie: true }));
+  const csrfProtection = csrf({ cookie: true });
+  app.use(csrfProtection);
 
+  // Middleware para enviar el token CSRF en las cookies
   app.use((req, res, next) => {
-    res.cookie('XSRF-TOKEN', req.csrfToken());
+    res.cookie('XSRF-TOKEN', req.csrfToken(), {
+      httpOnly: false, // Permitir acceso al token desde el cliente
+      secure: process.env.NODE_ENV === 'production', // Solo si estás en producción
+    });
     next();
   });
-
   app.enableCors({
-    origin: ['https://stellarhotel.onrender.com/'],  // o cualquier dominio que estés usando
+    origin: ['https://stellarhotel.onrender.com'],  // o cualquier dominio que estés usando
     credentials: true,  // Si estás usando cookies o autenticación
   });
   app.listen(port, () => {
