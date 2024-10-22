@@ -9,16 +9,18 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { CsrfController } from './csrf/csrf.controller';
+import { VoyagerController } from './voyager/voyager.controller';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      csrfPrevention:false
     }),
     RoomsModule, ReservationsModule
   ],
-  controllers: [AppController, CsrfController],
+  controllers: [AppController, CsrfController, VoyagerController],
   providers: [AppService, PrismaService],
 })
 export class AppModule {}
