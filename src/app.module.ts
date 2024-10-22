@@ -17,7 +17,8 @@ import { VoyagerController } from './voyager/voyager.controller';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'schema.gql'),
       csrfPrevention: false,
-      playground: true
+      playground: true, 
+      introspection:true
     }),
     RoomsModule, ReservationsModule
   ],
