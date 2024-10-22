@@ -21,12 +21,38 @@
 </p>
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-# Local instalation
+# Stellar Hotel API
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The Stellar Hotel GraphQl service is a dynamic pricing system designed for Stellar Stay Hotels, built using NestJS and TypeScript. This API manages room reservations, pricing, and related functionalities, supporting REST and GraphQL.
+
+## Features
+
+- **Dynamic Room Pricing**: Automatically calculates room prices based on various parameters.
+- **Reservation Management**: Allows creating, retrieving, and canceling reservations.
+- **GraphQL API**: Flexible querying and mutation capabilities for efficient data retrieval.
+- **Docker Support**: Easy deployment and local development using Docker.
+- **Store Procedures**: Store procedures database
+
+## Technologies Used
+
+- **Backend**: NestJS, TypeScript
+- **Database**: PostgreSQL
+- **ORM**: Prisma
+- **Testing**: Jest
+- **Containerization**: Docker
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (version 16 or later)
+- Yarn (package manager)
+- PostgreSQL (for local development)
+- Docker (for containerization)
+
+# Local instalation
 
 ## Installation
 
@@ -48,12 +74,37 @@ Now you can generate the client
 ```bash
   npx prisma generate
 ```
+### Installation
 
-## Seeder
-Now we are going to create the inital data into `roomTypes` and `rooms`tables and a couple of store procedure (`get_available_rooms`, `sp_reservation_details`).
-```bash
-  npx ts-node prisma/seeders/seed.ts\
-```
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/yourusername/stellarhotel-api.git
+    cd stellarhotel-api
+    ```
+
+2. **Install dependencies**:
+    ```bash
+    yarn install
+    ```
+
+3. **Set up environment variables**:
+    Copy the `.env.example` file to `.env` and update the values as necessary.
+
+4. **Run migrations** :
+    If you want to set up the database structure, run:
+    And after you can run the migration comand
+    ```bash
+      npx prisma migrate deploy
+    ```
+    Now you can generate the client 
+    ```bash
+      npx prisma generate
+    ```
+5. **Seeder**:
+    Well... we are going to create the inital data into `roomTypes`, `pricingParameters` and `rooms`tables and a couple of store procedure (`get_available_rooms`, `sp_reservation_details`).
+    ```bash
+      npx ts-node prisma/seeders/seed.ts
+    ```
 
 ## Running the app
 
