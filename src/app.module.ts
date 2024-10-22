@@ -7,7 +7,6 @@ import { ReservationsModule } from './reservations/reservations.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
 import { CsrfController } from './csrf/csrf.controller';
 import { VoyagerController } from './voyager/voyager.controller';
 
@@ -15,8 +14,9 @@ import { VoyagerController } from './voyager/voyager.controller';
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      csrfPrevention:false
+      autoSchemaFile: true,
+      csrfPrevention:false,
+      playground:true
     }),
     RoomsModule, ReservationsModule
   ],

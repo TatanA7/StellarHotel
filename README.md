@@ -1,120 +1,278 @@
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+</p>
 
-# Stellar Hotels API
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-Bienvenido a la API de Stellar Hotels, un sistema de reservas de hoteles que permite gestionar habitaciones, reservas y obtener detalles sobre disponibilidad.
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Tabla de Contenidos
+# Local instalation
 
-- [DescripciÃ³n](#descripciÃ³n)
-- [CaracterÃ­sticas](#caracterÃ­sticas)
-- [TecnologÃ­as Utilizadas](#tecnologÃ­as-utilizadas)
-- [InstalaciÃ³n](#instalaciÃ³n)
-- [Uso](#uso)
-- [Pruebas](#pruebas)
-- [Contribuciones](#contribuciones)
-- [Licencia](#licencia)
+## Description
 
-## DescripciÃ³n
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-La API de Stellar Hotels proporciona funcionalidades para gestionar la informaciÃ³n de los hoteles, incluidas las habitaciones, las reservas y la disponibilidad. Esta API estÃ¡ diseÃ±ada para ser utilizada por desarrolladores que deseen integrar un sistema de reservas en sus aplicaciones.
-
-## CaracterÃ­sticas
-
-- GestiÃ³n de habitaciones
-- CreaciÃ³n y gestiÃ³n de reservas
-- Consultas de disponibilidad de habitaciones
-- Soporte para mÃºltiples tipos de habitaciones
-- Manejo de tarifas dinÃ¡micas
-
-## TecnologÃ­as Utilizadas
-
-- [NestJS](https://nestjs.com/) - Framework de Node.js para construir aplicaciones eficientes y escalables.
-- [Prisma](https://www.prisma.io/) - ORM para bases de datos.
-- [PostgreSQL](https://www.postgresql.org/) - Sistema de gestiÃ³n de bases de datos relacional.
-- [GraphQL](https://graphql.org/) - Lenguaje de consulta para APIs.
-
-## InstalaciÃ³n
-
-Para instalar y ejecutar el proyecto, sigue estos pasos:
-
-1. Clona el repositorio:
-
-   ```bash
-   git clone https://github.com/tu_usuario/stellar-hotels.git
-   ```
-
-2. Navega al directorio del proyecto:
-
-   ```bash
-   cd stellar-hotels
-   ```
-
-3. Instala las dependencias:
-
-   ```bash
-   yarn install
-   ```
-
-4. Configura el archivo `.env` con tus variables de entorno:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-   AsegÃºrate de completar las variables necesarias, como las credenciales de la base de datos.
-
-5. Ejecuta las migraciones de Prisma:
-
-   ```bash
-   npx prisma migrate dev
-   ```
-
-## Uso
-
-Para iniciar el servidor de desarrollo, utiliza el siguiente comando:
+## Installation
 
 ```bash
-yarn start:dev
+$ yarn install
 ```
 
-La API estarÃ¡ disponible en `http://localhost:3000/graphql`.
+## Database migration 
+Before to migrate you need to configure .env file, if you don't have this file you will need to create it in the proyect root and add the following variable.
+```bash
+DATABASE_URL="postgresql://postgres:root@localhost:5432/stellarHotel"
+```
 
+And after you can run the migration comand
+```bash
+  npx prisma migrate deploy
+```
+Now you can generate the client 
+```bash
+  npx prisma generate
+```
 
-## Pruebas
+## Seeder
+Now we are going to create the inital data into `roomTypes` and `rooms`tables and a couple of store procedure (`get_available_rooms`, `sp_reservation_details`).
+```bash
+  npx ts-node prisma/seeders/seed.ts\
+```
 
-Para ejecutar las pruebas, utiliza el siguiente comando:
+## Running the app
 
 ```bash
-yarn test
+# development
+$ yarn run start
+
+# watch mode
+$ yarn run start:dev
+
+# production mode
+$ yarn run start:prod
 ```
 
-Las pruebas estÃ¡n organizadas y se ejecutarÃ¡n usando Jest.
+## And everything is ready, you can go to [localhost:](http://localhost:3000/graphql) http://localhost:3000/graphql
+there you can see all the documentation made with by graphql serve
 
-## Contribuciones
+Request examples
+<details>
+  <summary>get Availables Rooms</summary>
 
-Las contribuciones son bienvenidas. Si deseas contribuir, por favor sigue estos pasos:
+  ```graphql
+  query {
+    getAvailablesRooms(
+      input:{
+        checkinDate: "2024-10-21", 
+        checkoutDate: "2024-10-25", 
+        Amountguests: 2,
+        breakfast: true
+      }) {
+      roomid
+      baserate
+      totalprice
+      roomtype
+      maxoccupancy
+      breakDown{
+        discount
+        additionalChange{
+          breakfastcost
+          weekendincrease
+        }
+      }
+    }
+  }
+  ```
+</details>
 
-1. Haz un fork del proyecto.
-2. Crea una nueva rama para tus cambios:
+<details>
+  <summary>Create Reservations</summary>
 
-   ```bash
-   git checkout -b feature/nueva-caracteristica
-   ```
+  ```graphql
+    mutation{
+      createReservation(
+        input:{
+          roomId: 5
+          checkinDate: "2024-10-21", 
+          checkoutDate: "2024-10-25", 
+          numberOfGuests: 2,
+          breakfastIncluded: true
+        }
+      ){
+        id
+        roomId
+        checkIn
+        checkOut
+        isCancelled
+        breakfastIncluded
+        numberOfGuests
+      }
+    }
+  ```
+</details>
+<details>
+  <summary>Get all reservation</summary>
 
-3. Realiza tus cambios y haz commit:
+  ```graphql
+    query{
+      getAllReservation{
+        past{
+          id
+          roomId
+          checkIn
+          checkOut
+          breakfastIncluded
+          room{
+            id
+            roomTypeId
+            hasOceanView
+            roomType{
+              name
+              price
+            }
+          }
+        }
+        onGoing{
+          id
+          roomId
+          checkIn
+          checkOut
+          breakfastIncluded
+          room{
+            id
+            roomTypeId
+            hasOceanView
+            roomType{
+              name
+              price
+            }
+          }
+        }
+        futures{
+          id
+          roomId
+          checkIn
+          checkOut
+          breakfastIncluded
+          room{
+            id
+            roomTypeId
+            hasOceanView
+            roomType{
+              name
+              price
+            }
+          }
+        }
+      }
+    }
+  ```
+</details>
 
-   ```bash
-   git commit -m 'AÃ±adir nueva caracterÃ­stica'
-   ```
+<details>
+  <summary>Cancel Reservations</summary>
 
-4. Sube tus cambios:
+  ```graphql
+    mutation{
+      cancelReservation(cancelReservationInput:{reservationId:1}){
+        id
+        numberOfGuests
+        breakfastIncluded
+        isCancelled
+        room{
+          id
+          roomTypeId
+          hasOceanView
+          roomType{
+            id
+            name
+            price
+          }
+        }
+      }
+    }
+  ```
+</details>
 
-   ```bash
-   git push origin feature/nueva-caracteristica
-   ```
+<details>
+  <summary>Get reservtion details</summary>
 
-5. Abre un pull request.
+  ```graphql
+    query{ 
+      getReservationDetail(reservationId:1){
+        id
+        roomid
+        baserate
+        totalprice
+        roomtype
+        maxoccupancy
+        numberOfGuests
+        breakDown{
+          discount
+          additionalChange{
+            breakfastcost
+            weekendincrease
+            
+          }
+        }
+      }
+    }
+  ```
+</details>
 
-## Licencia
+## Test
 
-Este proyecto estÃ¡ bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para mÃ¡s detalles.
+```bash
+# unit tests
+$ yarn run test
+
+# test coverage
+$ yarn run test:cov
+```
+
+# Docker instalation
+
+If you are using `docker` you can use the follow command to run the container
+```bash
+  $ docker-compose up --build  
+```
+This case the proyect will be exposed in the same route [localhost:](http://localhost:3000/graphql) http://localhost:3000/graphql
+
+if you have some problem with you container can run :
+```bash
+  $ docker system prune -a    
+```
+And try again
+
+# Hosting enviroment
+The service will be expose in this route [localhost:](http://localhost:3000/graphql) http://localhost:3000/graphql
+
+## Support
+
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+
+## Stay in touch
+
+- Author - [Jhonathan Ascencio](https://jhonathan.ascenciog@gmail.com)
+<!-- - Website - [https://nestjs.com](https://nestjs.com/) -->
+- Github - [@TatanA7](https://github.com/TatanA7/StellarHotel)
+
+## License
+
+Nest is [MIT licensed](LICENSE).
