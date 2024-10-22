@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "4a728197-741d-4af4-aee1-edd292e4649b",
+		"name": "getAvailablesRooms",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8474365"
+	},
+	"item": [
+		{
+			"name": "getAllReservation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\r\n  getAllReservation {\r\n    past {\r\n      id\r\n      roomId\r\n      checkIn\r\n      checkOut\r\n      numberOfGuests\r\n      breakfastIncluded\r\n      isCancelled\r\n      room {\r\n        id\r\n        roomTypeId\r\n        hasOceanView\r\n      }\r\n    }\r\n    onGoing {\r\n      id\r\n      roomId\r\n      checkIn\r\n      checkOut\r\n      numberOfGuests\r\n      breakfastIncluded\r\n      isCancelled\r\n      room {\r\n        id\r\n        roomTypeId\r\n        hasOceanView\r\n      }\r\n    }\r\n    futures {\r\n      id\r\n      roomId\r\n      checkIn\r\n      checkOut\r\n      numberOfGuests\r\n      breakfastIncluded\r\n      isCancelled\r\n      room {\r\n        id\r\n        roomTypeId\r\n        hasOceanView\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "https://stellarhotel.onrender.com/graphql",
+					"protocol": "https",
+					"host": [
+						"stellarhotel",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAvailablesRooms",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\r\n    getAvailablesRooms(\r\n      input: {\r\n        roomId: 1\r\n        checkinDate: \"2024-10-25T10:00:00Z\"\r\n        checkoutDate: \"2024-10-30T10:00:00Z\"\r\n        Amountguests: 2\r\n        breakfast: true\r\n      }\r\n    ) {\r\n      roomid\r\n      baserate\r\n      totalprice\r\n      roomtype\r\n      maxoccupancy\r\n      breakDown {\r\n        discount\r\n        additionalChange {\r\n          breakfastcost\r\n          weekendincrease\r\n        }\r\n      }\r\n    }\r\n  }",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "https://stellarhotel.onrender.com/graphql",
+					"protocol": "https",
+					"host": [
+						"stellarhotel",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getReservationDetail",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\r\n  getReservationDetail(reservationId: 1) {\r\n    id\r\n    roomid\r\n    baserate\r\n    totalprice\r\n    roomtype\r\n    maxoccupancy\r\n    numberOfGuests\r\n    breakDown {\r\n      discount\r\n      additionalChange {\r\n        breakfastcost\r\n        weekendincrease\r\n      }\r\n    }\r\n  }\r\n}\r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "https://stellarhotel.onrender.com/graphql",
+					"protocol": "https",
+					"host": [
+						"stellarhotel",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createReservation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\r\n  createReservation(\r\n    input: {\r\n      roomId: 1\r\n      checkinDate: \"2024-10-25T10:00:00Z\"\r\n      checkoutDate: \"2024-10-30T10:00:00Z\"\r\n      numberOfGuests: 2\r\n      breakfastIncluded: true\r\n    }\r\n  ) {\r\n    id\r\n    roomId\r\n    checkIn\r\n    checkOut\r\n    numberOfGuests\r\n    breakfastIncluded\r\n  }\r\n}\r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "https://stellarhotel.onrender.com/graphql",
+					"protocol": "https",
+					"host": [
+						"stellarhotel",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancelReservation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation {\r\n  cancelReservation(cancelReservationInput: { reservationId: 1 }) {\r\n    id\r\n    roomId\r\n    checkIn\r\n    checkOut\r\n    numberOfGuests\r\n    breakfastIncluded\r\n    isCancelled\r\n  }\r\n}\r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "https://stellarhotel.onrender.com/graphql",
+					"protocol": "https",
+					"host": [
+						"stellarhotel",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

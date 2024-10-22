@@ -261,7 +261,175 @@ if you have some problem with you container can run :
 And try again
 
 # Hosting enviroment
-The service will be expose in this route [localhost:](http://localhost:3000/graphql) http://localhost:3000/graphql
+The service will be expose in this route [stellarhotel.onrender.com/graphql:](http://stellarhotel.onrender.com/graphql) 
+you can to test everything with postman or in the documentation page 
+if you want to use postman in the root proyect you will fing a postman file `StellaHotels.postman_collection.json` to import in your postman
+
+Anyway here each schema again
+Request examples
+<details>
+  <summary>get Availables Rooms</summary>
+
+  ```graphql
+  query {
+    getAvailablesRooms(
+      input:{
+        checkinDate: "2024-10-21", 
+        checkoutDate: "2024-10-25", 
+        Amountguests: 2,
+        breakfast: true
+      }) {
+      roomid
+      baserate
+      totalprice
+      roomtype
+      maxoccupancy
+      breakDown{
+        discount
+        additionalChange{
+          breakfastcost
+          weekendincrease
+        }
+      }
+    }
+  }
+  ```
+</details>
+
+<details>
+  <summary>Create Reservations</summary>
+
+  ```graphql
+    mutation{
+      createReservation(
+        input:{
+          roomId: 5
+          checkinDate: "2024-10-21", 
+          checkoutDate: "2024-10-25", 
+          numberOfGuests: 2,
+          breakfastIncluded: true
+        }
+      ){
+        id
+        roomId
+        checkIn
+        checkOut
+        isCancelled
+        breakfastIncluded
+        numberOfGuests
+      }
+    }
+  ```
+</details>
+<details>
+  <summary>Get all reservation</summary>
+
+  ```graphql
+    query{
+      getAllReservation{
+        past{
+          id
+          roomId
+          checkIn
+          checkOut
+          breakfastIncluded
+          room{
+            id
+            roomTypeId
+            hasOceanView
+            roomType{
+              name
+              price
+            }
+          }
+        }
+        onGoing{
+          id
+          roomId
+          checkIn
+          checkOut
+          breakfastIncluded
+          room{
+            id
+            roomTypeId
+            hasOceanView
+            roomType{
+              name
+              price
+            }
+          }
+        }
+        futures{
+          id
+          roomId
+          checkIn
+          checkOut
+          breakfastIncluded
+          room{
+            id
+            roomTypeId
+            hasOceanView
+            roomType{
+              name
+              price
+            }
+          }
+        }
+      }
+    }
+  ```
+</details>
+
+<details>
+  <summary>Cancel Reservations</summary>
+
+  ```graphql
+    mutation{
+      cancelReservation(cancelReservationInput:{reservationId:1}){
+        id
+        numberOfGuests
+        breakfastIncluded
+        isCancelled
+        room{
+          id
+          roomTypeId
+          hasOceanView
+          roomType{
+            id
+            name
+            price
+          }
+        }
+      }
+    }
+  ```
+</details>
+
+<details>
+  <summary>Get reservtion details</summary>
+
+  ```graphql
+    query{ 
+      getReservationDetail(reservationId:1){
+        id
+        roomid
+        baserate
+        totalprice
+        roomtype
+        maxoccupancy
+        numberOfGuests
+        breakDown{
+          discount
+          additionalChange{
+            breakfastcost
+            weekendincrease
+            
+          }
+        }
+      }
+    }
+  ```
+</details>
 
 ## Support
 
