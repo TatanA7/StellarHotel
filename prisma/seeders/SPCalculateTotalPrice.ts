@@ -79,14 +79,18 @@ async function SPCalculateTotalPrice() {
                 rt."maxOccupancy" AS maxOccupancy
             FROM "Room" r
             JOIN "RoomType" rt ON r."roomTypeId" = rt.id
-            LEFT JOIN "Reservation" res ON r.id = res."roomId"
             WHERE rt."maxOccupancy" >= guests  
             AND (
-                res.id IS NULL 
-                OR (
-                    res."checkIn" >= check_out AND res."isCancelled" = false
-                    OR res."checkOut" <= check_in AND res."isCancelled" = false
-                ) 
+                -- Asegurarse de que no haya reservas activas para las fechas solicitadas
+                NOT EXISTS (
+                    SELECT 1 
+                    FROM "Reservation" r2 
+                    WHERE r2."roomId" = r.id 
+                    AND r2."isCancelled" = false 
+                    AND (
+                        (r2."checkIn" < check_out AND r2."checkOut" > check_in) -- Conflicto en las fechas
+                    )
+                )
             );
         END;
         $$ LANGUAGE plpgsql;
